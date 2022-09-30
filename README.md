@@ -1,1 +1,2 @@
 # django-CoMgmtS
+# Django-CoMgmtSY
