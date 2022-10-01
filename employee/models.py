@@ -58,6 +58,7 @@ class empolyee(models.Model):
     work_arrangement = models.ForeignKey('Work_arrangement', on_delete=models.CASCADE, null=True)
     team_leader = models.ForeignKey('Team_leader', on_delete=models.CASCADE, null=True)
     hourly_rate = models.IntegerField(choices=hourly_rate_choices)
+    team_employee = models.ManyToManyField('Team_employee', null=True)
     def __str__(self):
         return self.name
 
@@ -76,12 +77,35 @@ class Team_leader(models.Model):
 
 
 class Team_employee(models.Model):
-    Team_one = models.CharField(max_length=30)
+    """ Team_one = models.CharField(max_length=30)
     Team_two = models.CharField(max_length=30)
-    Team_three = models.CharField(max_length=30)
+    Team_three = models.CharField(max_length=30) """
+
+    Team_employee_CHOICES = [
+    ('Team_one_employee', (
+            ('ramy', 'Ramy'),
+            ('ezzat', 'Ezzat'),
+            ('gamal', 'Gamal'),
+        )
+    ),
+    ('Team_two_employee', (
+            ('hussam', 'Hussam'),
+            ('saleh', 'Saleh'),
+            ('sayed', 'Sayed'),
+        )
+    ),
+        ('Team_three_employee', (
+            ('bahaa', 'Bahaa'),
+            ('fady', 'Fady'),
+            ('esraa', 'Esraa'),
+        )
+    ),
+    #('unknown', 'Unknown'),
+]
     
+    Team_employee_category = models.CharField(max_length=30, choices=Team_employee_CHOICES)
     def __str__(self):
-        return (self.Team_one, self.Team_two, self.Team_three)
+        return (self.Team_employee_category)
 
 class Work_arrangement(models.Model):
     fulltime = 'Full time'
