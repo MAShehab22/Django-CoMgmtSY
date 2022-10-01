@@ -54,7 +54,9 @@ team_employee_three_choices=['Bahaa', 'Fady', 'Esraa' ] """
 class empolyee(models.Model):
     name = models.CharField(max_length=100)
     team_part = models.CharField(max_length=100, choices = teams_choices)
-    # team = models.ForeignKey(Team, on_delete=models.CASCADE)
+    team = models.ForeignKey('Team', on_delete=models.CASCADE, null=True)
+    work_arrangement = models.ForeignKey('Work_arrangement', on_delete=models.CASCADE, null=True)
+    team_leader = models.ForeignKey('Team_leader', on_delete=models.CASCADE, null=True)
     hourly_rate = models.IntegerField(choices=hourly_rate_choices)
     def __str__(self):
         return self.name
@@ -81,7 +83,7 @@ class Team_employee(models.Model):
     def __str__(self):
         return (self.Team_one, self.Team_two, self.Team_three)
 
-class work_arrangement(models.Model):
+class Work_arrangement(models.Model):
     fulltime = 'Full time'
     parttime = 'Part time'
     work_time_choices = [
@@ -89,6 +91,9 @@ class work_arrangement(models.Model):
         (parttime, 'Part time'),
     ]
     work_time = models.CharField(max_length=100, choices = work_time_choices)
+    
+    def __str__(self):
+        return (self.work_time)
 
 
 
